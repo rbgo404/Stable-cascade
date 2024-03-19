@@ -13,6 +13,7 @@ class InferlessPythonModel:
 
     def infer(self, inputs):
       prompt = inputs["prompt"]
+      negative_prompt = inputs["negative_prompt"]
       prior_output = self.prior(
           prompt=prompt,
           height=1024,
