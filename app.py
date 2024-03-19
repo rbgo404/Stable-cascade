@@ -1,31 +1,39 @@
-import json
-import numpy as np
 import torch
-from transformers import pipeline
-from diffusers import DiffusionPipeline
-import base64
-from io import BytesIO
+from diffusers import StableCascadeDecoderPipeline, StableCascadePriorPipeline
 
+from io import BytesIO
+import base64
+from huggingface_hub import snapshot_download
+import os
 
 class InferlessPythonModel:
-  def initialize(self):
-    self.generator = DiffusionPipeline.from_pretrained(
-      "stabilityai/stable-diffusion-xl-base-1.0",
-      torch_dtype=torch.float16,
-      use_safetensors=True,
-      variant="fp16",
-      device_map="auto"
-    )
+    def initialize(self):
+      self.prior = StableCascadePriorPipeline.from_pretrained("stabilityai/stable-cascade-prior", variant="bf16", torch_dtype=torch.bfloat16).to("cuda")
+      self.decoder = StableCascadeDecoderPipeline.from_pretrained("stabilityai/stable-cascade", variant="bf16", torch_dtype=torch.float16).to("cuda")
 
-  def infer(self, inputs):
-    prompt = inputs["prompt"]
-    self. generator.enable_xformers_memory_efficient_attention()
-    pipeline_output_image = self.generator(prompt).images[0]
-    buff = BytesIO()
-    pipeline_output_image.save(buff, format="PNG")
-    img_str = base64.b64encode(buff.getvalue())
-    return {"generated_image_base64": img_str.decode('utf-8')}
+    def infer(self, inputs):
+      prompt = inputs["prompt"]
+      prior_output = self.prior(
+          prompt=prompt,
+          height=1024,
+          width=1024,
+          negative_prompt=negative_prompt,
+          guidance_scale=4.0,
+          num_images_per_prompt=1,
+          num_inference_steps=20)
 
-  def finalize(self,args):
-    self.generator = None
-    
+      decoder_output = self.decoder(
+          image_embeddings=prior_output.image_embeddings.to(torch.float16),
+          prompt=prompt,
+          negative_prompt=negative_prompt,
+          guidance_scale=0.0,
+          output_type="pil",
+          num_inference_steps=10
+      ).images[0]
+      buff = BytesIO()
+      image.save(buff, format="JPEG")
+      img_str = base64.b64encode(buff.getvalue()).decode()
+      return { "generated_image_base64" : img_str }
+
+    def finalize(self):
+        self.pipe = None
