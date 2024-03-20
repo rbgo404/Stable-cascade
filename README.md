@@ -1,6 +1,5 @@
 # Stable-cascade
-This is a Stable-cascade template you can use to import your model on Inferless Platform.
-Stable-cascade model is built upon the Würstchen architecture and its main difference to other models like Stable Diffusion is that it is working at a much smaller latent space. Why is this important? The smaller the latent space, the faster you can run inference and the cheaper the training becomes.
+- This is a Stable-cascade template you can use to import your model on Inferless Platform. Stable-cascade model is built upon the Würstchen architecture and its main difference to other models like Stable Diffusion is that it is working at a much smaller latent space. Why is this important? The smaller the latent space, the faster you can run inference and the cheaper the training becomes.
 ---
 ## Prerequisites
 - **Git**. You would need git installed on your system if you wish to customize the repo after forking.
