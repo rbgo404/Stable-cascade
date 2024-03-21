@@ -51,7 +51,17 @@ curl --location '<your_inference_url>' \
                     1
                   ],
                   "datatype": "BYTES"
-                }
+                },
+               {
+                "data": [
+                   ""
+                ],
+                "name": "negative_prompt",
+                "shape": [
+                  1
+                ],
+                "datatype": "BYTES"
+               }
               ]
             }
             '
