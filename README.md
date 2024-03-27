@@ -1,5 +1,19 @@
-# Stable-cascade
-This is a Stable-cascade template you can use to import your model on Inferless Platform. Stable-cascade model is built upon the Würstchen architecture and its main difference to other models like Stable Diffusion is that it is working at a much smaller latent space. Why is this important? The smaller the latent space, the faster you can run inference and the cheaper the training becomes.
+# Tutorial - Deploy Stable Cascade using Inferless
+
+Check out [this tutorial](https://docs.inferless.com/how-to-guides/deploy-stable-cascade-using-inferless#deploying-the-model-on-inferless) which will guides you through the process of deploying a Stable Cascade model using Inferless.
+
+## TL;DR - Deploy Stable Cascade using Inferless:
+
+- Deployment of Stable Cascade model using [diffusers](https://github.com/huggingface/diffusers).
+- By using the diffusers, you can expect an average lowest latency of 3.02 sec. This setup has an average cold start time of 9.46 sec.
+- Dependencies defined in inferless-runtime-config.yaml.
+- GitHub/GitLab template creation with app.py and config.yaml.
+- Model class in app.py with initialize, infer, and finalize functions.
+- Custom runtime creation with necessary system and Python packages.
+- Model import via GitHub with input_schema.py file.
+- Recommended GPU: NVIDIA A100 for optimal performance.
+- Custom runtime selection in advanced configuration.
+- Final review and deployment on the Inferless platform.
 
 ---
 ## Prerequisites
