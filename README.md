@@ -5,7 +5,7 @@ Check out [this tutorial](https://docs.inferless.com/how-to-guides/deploy-stable
 ## TL;DR - Deploy Stable Cascade using Inferless:
 
 - Deployment of Stable Cascade model using [diffusers](https://github.com/huggingface/diffusers).
-- By using the diffusers, you can expect an average lowest latency of 3.02 sec. This setup has an average cold start time of 9.46 sec.
+- By using the diffusers, you can expect an average lowest latency of `3.02 sec`. This setup has an average cold start time of `9.46 sec`.
 - Dependencies defined in inferless-runtime-config.yaml.
 - GitHub/GitLab template creation with app.py and config.yaml.
 - Model class in app.py with initialize, infer, and finalize functions.
