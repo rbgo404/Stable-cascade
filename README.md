@@ -43,7 +43,7 @@ Select the PyTorch as framework and choose **Repo(custom code)** as your model s
 
 After the create model step, while setting the configuration for the model make sure to select the appropriate runtime.
 
-Enter all the required details to Import your model. Refer [this link](https://docs.inferless.com/integrations/github-custom-code) for more information on model import.
+Enter all the required details to Import your model. Refer [this link](https://docs.inferless.com/integrations/git-custom-code/git--custom-code) for more information on model import.
 
 The following is a sample Input and Output JSON for this model which you can use while importing this model on Inferless.
 
@@ -68,7 +68,7 @@ curl --location '<your_inference_url>' \
                 },
                {
                 "data": [
-                   ""
+                   "low quality"
                 ],
                 "name": "negative_prompt",
                 "shape": [
@@ -92,8 +92,14 @@ Open the `app.py` file. This contains the main code for inference. It has three 
 ```python
 def infer(self, inputs):
     prompt = inputs["prompt"]
+    negative_prompt = inputs["negative_prompt"]
 ```
 
-**Finalize** - This function is used to perform any cleanup activity for example you can unload the model from the gpu by setting `self.pipe = None`.
+**Finalize** - This function is used to perform any cleanup activity for example you can unload the model from the gpu by setting to `None`.
+```python
+def finalize(self):
+    self.prior = None
+    self.decoder = None
+```
 
 For more information refer to the [Inferless docs](https://docs.inferless.com/).

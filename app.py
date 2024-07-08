@@ -1,10 +1,7 @@
 import torch
 from diffusers import StableCascadeDecoderPipeline, StableCascadePriorPipeline
-
 from io import BytesIO
 import base64
-from huggingface_hub import snapshot_download
-import os
 
 class InferlessPythonModel:
     def initialize(self):
@@ -37,4 +34,5 @@ class InferlessPythonModel:
       return { "generated_image_base64" : img_str }
 
     def finalize(self):
-        self.pipe = None
+        self.prior = None
+        self.decoder = None
